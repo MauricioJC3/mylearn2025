@@ -118,15 +118,15 @@ public class Mavenproject1 {
         
         */
         
-        int base;
-        int altura;
-        int area;
+        double base;
+        double altura;
+        double area;
         
         System.out.println("Ingrese por favor la base del triangulo: ");
-        base = teclado.nextInt();
+        base = teclado.nextDouble();
         
         System.out.println("Ingrese por favor la altura del triangulo: ");
-        altura = teclado.nextInt();
+        altura = teclado.nextDouble();
         
         area = base * altura / 2;
         
