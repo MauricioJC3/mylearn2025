@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Flujo tipo n8n Compacto</title>
+  <script src="https://cdn.jsdelivr.net/npm/leader-line@1.0.5/leader-line.min.js"></script>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    #container {
+      position: relative;
+      width: 1200px;
+      height: 800px;
+      margin: auto;
+    }
+
+    .node {
+      width: 200px;
+      padding: 10px;
+      position: absolute;
+      border-radius: 8px;
+      color: white;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      font-size: 13px;
+    }
+
+    .node h3 {
+      margin: 0 0 6px;
+      font-size: 14px;
+    }
+
+    .node ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .var {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      display: inline-block;
+      margin: 2px 0;
+    }
+
+    /* Colores n8n */
+    .webhook { background: #38bdf8; }
+    .set { background: #60a5fa; }
+    .function { background: #a855f7; }
+    .http { background: #facc15; color: black; }
+    .condition { background: #ef4444; }
+    .db { background: #64748b; }
+    .email { background: #06b6d4; }
+
+    /* Posiciones más compactas */
+    #webhook       { top: 60px;  left: 50px; }
+    #set           { top: 60px;  left: 270px; }
+    #function      { top: 60px;  left: 490px; }
+    #http-ia       { top: 60px;  left: 710px; }
+    #if-intencion  { top: 60px;  left: 930px; }
+
+    #email-notify  { top: 200px; left: 930px; }
+    #db-agentes    { top: 200px; left: 710px; }
+    #if-agentes    { top: 200px; left: 490px; }
+    #set-agente    { top: 340px; left: 490px; }
+    #http-asignar  { top: 480px; left: 490px; }
+    #db-auditoria  { top: 480px; left: 710px; }
+  </style>
+</head>
+<body>
+  <h1>🔗 Flujo de Asignación - Compacto Estilo n8n</h1>
+  <div id="container">
+    <div class="node webhook" id="webhook">
+      <h3>🟢 Webhook</h3>
+      <ul><li>conversation.created</li></ul>
+    </div>
+
+    <div class="node set" id="set">
+      <h3>🔵 Set</h3>
+      <ul><li><span class="var">id</span>, <span class="var">mensaje</span></li></ul>
+    </div>
+
+    <div class="node function" id="function">
+      <h3>🟣 Function</h3>
+      <ul><li>Genera prompt IA</li></ul>
+    </div>
+
+    <div class="node http" id="http-ia">
+      <h3>🟡 HTTP IA</h3>
+      <ul><li>OpenAI</li></ul>
+    </div>
+
+    <div class="node condition" id="if-intencion">
+      <h3>🔴 IF intención</h3>
+      <ul><li>¿Existe intención?</li></ul>
+    </div>
+
+    <div class="node email" id="email-notify">
+      <h3>📧 Email</h3>
+      <ul><li>Sin agente</li></ul>
+    </div>
+
+    <div class="node db" id="db-agentes">
+      <h3>🟤 DB Agentes</h3>
+      <ul><li>Buscar disponibles</li></ul>
+    </div>
+
+    <div class="node condition" id="if-agentes">
+      <h3>🔴 IF Agentes</h3>
+      <ul><li>¿agent_id?</li></ul>
+    </div>
+
+    <div class="node set" id="set-agente">
+      <h3>🔵 Set ID</h3>
+      <ul><li>Guardar agent_id</li></ul>
+    </div>
+
+    <div class="node http" id="http-asignar">
+      <h3>🟡 HTTP Chatwoot</h3>
+      <ul><li>Asignar</li></ul>
+    </div>
+
+    <div class="node db" id="db-auditoria">
+      <h3>🟤 DB Auditoría</h3>
+      <ul><li>Guardar log</li></ul>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = [
+        ['webhook', 'set'],
+        ['set', 'function'],
+        ['function', 'http-ia'],
+        ['http-ia', 'if-intencion'],
+        ['if-intencion', 'db-agentes'],
+        ['if-intencion', 'email-notify'],
+        ['db-agentes', 'if-agentes'],
+        ['if-agentes', 'set-agente'],
+        ['if-agentes', 'email-notify'],
+        ['set-agente', 'http-asignar'],
+        ['http-asignar', 'db-auditoria']
+      ];
+
+      links.forEach(([from, to]) => {
+        new LeaderLine(
+          document.getElementById(from),
+          document.getElementById(to),
+          {
+            color: '#6b7280',
+            size: 2,
+            path: 'fluid',
+            startSocket: 'right',
+            endSocket: 'left',
+            dash: false
+          }
+        );
+      });
+    });
+  </script>
+</body>
+</html>

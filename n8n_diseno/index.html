@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Flujo Chatwoot + n8n - Asignación de Agentes</title>
+    <script src="https://cdn.jsdelivr.net/npm/leader-line@1.0.5/leader-line.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f5f7fa; padding: 20px; }
+        .node { 
+            width: 180px; padding: 12px; margin: 15px; 
+            border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: absolute; background: white;
+        }
+        .webhook { border-left: 4px solid #4CAF50; }
+        .set { border-left: 4px solid #2196F3; }
+        .function { border-left: 4px solid #9C27B0; }
+        .http { border-left: 4px solid #FFC107; }
+        .db { border-left: 4px solid #607D8B; }
+        .condition { border-left: 4px solid #F44336; }
+        .email { border-left: 4px solid #00BCD4; }
+        h3 { margin-top: 0; font-size: 14px; }
+        ul { padding-left: 20px; font-size: 12px; }
+        #container { position: relative; height: 800px; }
+        .var { font-size: 11px; color: #666; background: #f0f0f0; padding: 2px 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Flujo de Asignación Automática en n8n</h1>
+    <div id="container">
+        <!-- Nodos posicionados absolutamente -->
+        <div class="node webhook" id="webhook" style="top: 50px; left: 50px;">
+            <h3>🟢 Webhook (Trigger)</h3>
+            <ul>
+                <li><strong>Evento:</strong> conversation.created</li>
+                <li><strong>Datos:</strong> ID, mensaje, contacto</li>
+            </ul>
+        </div>
+
+        <div class="node set" id="set" style="top: 50px; left: 300px;">
+            <h3>🔵 Set (Extraer datos)</h3>
+            <ul>
+                <li><span class="var">conversation_id</span></li>
+                <li><span class="var">mensaje_inicial</span></li>
+                <li><span class="var">canal</span></li>
+            </ul>
+        </div>
+
+        <div class="node function" id="function" style="top: 50px; left: 550px;">
+            <h3>🟣 Function (Preparar IA)</h3>
+            <ul>
+                <li>Genera prompt para clasificación</li>
+                <li>Ej: "Clasifica: <span class="var">{{mensaje}}</span>"</li>
+            </ul>
+        </div>
+
+        <div class="node http" id="http-ia" style="top: 50px; left: 800px;">
+            <h3>🟡 HTTP Request (IA)</h3>
+            <ul>
+                <li><strong>Endpoint:</strong> API OpenAI</li>
+                <li><strong>Output:</strong> <span class="var">intención</span></li>
+            </ul>
+        </div>
+
+        <div class="node condition" id="if-intencion" style="top: 200px; left: 800px;">
+            <h3>🔴 IF (¿Intención válida?)</h3>
+            <ul>
+                <li>Condición: <span class="var">intención</span> existe</li>
+            </ul>
+        </div>
+
+        <div class="node db" id="db-agentes" style="top: 350px; left: 550px;">
+            <h3>🟤 PostgreSQL (Agentes)</h3>
+            <ul>
+                <li>Busca en equipo: <span class="var">{{intención}}</span></li>
+                <li>Filtra: <span class="var">chats_activos < 4</span></li>
+            </ul>
+        </div>
+
+        <div class="node condition" id="if-agentes" style="top: 350px; left: 800px;">
+            <h3>🔴 IF (¿Agentes disponibles?)</h3>
+            <ul>
+                <li>Condición: <span class="var">agent_id</span> existe</li>
+            </ul>
+        </div>
+
+        <div class="node set" id="set-agente" style="top: 500px; left: 550px;">
+            <h3>🔵 Set (Asignar agente)</h3>
+            <ul>
+                <li>Guarda: <span class="var">agent_id</span></li>
+            </ul>
+        </div>
+
+        <div class="node http" id="http-asignar" style="top: 650px; left: 550px;">
+            <h3>🟡 HTTP Request (Asignar)</h3>
+            <ul>
+                <li><strong>Endpoint:</strong> Chatwoot API</li>
+                <li>Body: <span class="var">{"assignee_id": agent_id}</span></li>
+            </ul>
+        </div>
+
+        <div class="node db" id="db-auditoria" style="top: 650px; left: 800px;">
+            <h3>🟤 PostgreSQL (Auditoría)</h3>
+            <ul>
+                <li>Registra asignación</li>
+            </ul>
+        </div>
+
+        <div class="node email" id="email-notify" style="top: 500px; left: 300px;">
+            <h3>📧 Email (Notificar)</h3>
+            <ul>
+                <li><strong>To:</strong> soporte@empresa.com</li>
+                <li><strong>Asunto:</strong> Sin agentes</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Conexiones entre nodos (simulando n8n)
+            const connections = [
+                { from: 'webhook', to: 'set' },
+                { from: 'set', to: 'function' },
+                { from: 'function', to: 'http-ia' },
+                { from: 'http-ia', to: 'if-intencion' },
+                { from: 'if-intencion', to: 'db-agentes', color: '#4CAF50' }, // Sí
+                { from: 'if-intencion', to: 'email-notify', color: '#F44336', path: 'straight' }, // No
+                { from: 'db-agentes', to: 'if-agentes' },
+                { from: 'if-agentes', to: 'set-agente', color: '#4CAF50' }, // Sí
+                { from: 'if-agentes', to: 'email-notify', color: '#F44336', path: 'straight' }, // No
+                { from: 'set-agente', to: 'http-asignar' },
+                { from: 'http-asignar', to: 'db-auditoria' }
+            ];
+
+            // Dibujar líneas de conexión
+            connections.forEach(conn => {
+                new LeaderLine(
+                    document.getElementById(conn.from),
+                    document.getElementById(conn.to),
+                    {
+                        color: conn.color || '#666',
+                        dash: { animation: true },
+                        path: conn.path || 'fluid',
+                        startSocket: 'right',
+                        endSocket: 'left',
+                        size: 2
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+</html>
