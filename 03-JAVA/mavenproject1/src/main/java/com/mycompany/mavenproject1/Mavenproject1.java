@@ -223,34 +223,107 @@ public class Mavenproject1 {
 //        total = precio_articulo * cantidad_producto;
 //        
 //        System.out.println("El preecio a pagar por el comprador es de: " + total);
-        
+//        
+//
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("    //*      EJERCISIO 9    *//    ");
+//          System.out.println("     /////////////////////////////    ");
+//                
+//          /*
+//          Crear una aplicacion que calcule la edad de una persona,
+//          para calcular la edad necesitaremos su fecha de nacimiento y fecha actual
+//          
+//          */
+//        
+//          int fecha_nacimiento;
+//          int fecha_actual;
+//          int edad;
+//          
+//          System.out.print("Ingrese por favor la fecha de nacimeinto: ");
+//          fecha_nacimiento = teclado.nextInt();
+//          
+//          System.out.print("Ingrese por favor la fecha actual: ");
+//          fecha_actual = teclado.nextInt();
+//          
+//          edad = fecha_actual - fecha_nacimiento;
+//          
+//          System.out.println("La edad de la persona es: " +  edad);
+          
+
+//
+//
+//
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("     //*      EJERCISIO 10    *//    ");
+//          System.out.println("     /////////////////////////////    ");
+//                
+          
+//          /*
+//          Crear una aplicacion que calcule el area de un trapecio
+//          
+//          S = h *( B + b )
+//                --------
+//                    2
+//          
+//          h -> Altura
+//          B -> base mayor
+//          b -> base menor
+//          
+//          */
+//          
+//          double h;
+//          double B;
+//          double b;
+//          double area_trapecio;
+//          
+//          System.out.println("Ingrese por favor el valor de h,'Altura': ");
+//          h = teclado.nextDouble();
+//          
+//          System.out.println("Ingrese por favor el valor de B,'Base mayor': ");
+//          B = teclado.nextDouble();
+//          
+//          System.out.println("Ingrese por favor el valor de b,'base menor': ");
+//          b = teclado.nextDouble();
+//          
+//          area_trapecio = h * (B + b) / 2;        
+//          
+//          System.out.println("El area del trapecio es: " + area_trapecio);
+//        
+
 
           System.out.println("     /////////////////////////////    ");
-          System.out.println("    //*      EJERCISIO 9    *//    ");
+          System.out.println("     //*      EJERCISIO 11    *//    ");
           System.out.println("     /////////////////////////////    ");
-                
+               
+
           /*
-          Crear una aplicacion que calcule la edad de una persona,
-          para calcular la edad necesitaremos su fecha de nacimiento y fecha actual
-          
+          Crear una aplicacion que nos pida dos caracteres
+          pior teclado, y dados esos caracteres sumarlos y mostrarlos
           */
-        
-          int fecha_nacimiento;
-          int fecha_actual;
-          int edad;
-          
-          System.out.print("Ingrese por favor la fecha de nacimeinto: ");
-          fecha_nacimiento = teclado.nextInt();
-          
-          System.out.println("Ingrese por favor la fecha actual: ");
-          fecha_actual = teclado.nextInt();
-          
-          edad = fecha_actual - fecha_nacimiento;
-          
-          System.out.println("La edad de la persona es: " +  edad);
           
           
-        
+          char letra_a;
+          char letra_e;
+          String suma_caracter = "";
+                  
+          System.out.println("Ingrese la primera letra: ");
+          letra_a = teclado.next().charAt(0);
+          
+          System.out.println("Ingrese la segunda letra: ");
+          letra_e = teclado.next().charAt(0);
+          
+          suma_caracter += letra_a + letra_e;
+          
+          System.out.println("La suma de caracteres es: " + suma_caracter );
+       
+          
+          
+          
+
+
+
+
+
         
         
     }
