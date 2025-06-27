@@ -290,41 +290,151 @@ public class Mavenproject1 {
 //          System.out.println("El area del trapecio es: " + area_trapecio);
 //        
 
+//
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("     //*      EJERCISIO 11    *//    ");
+//          System.out.println("     /////////////////////////////    ");
+//               
 
-          System.out.println("     /////////////////////////////    ");
-          System.out.println("     //*      EJERCISIO 11    *//    ");
-          System.out.println("     /////////////////////////////    ");
-               
-
-          /*
-          Crear una aplicacion que nos pida dos caracteres
-          pior teclado, y dados esos caracteres sumarlos y mostrarlos
-          */
-          
-          
-          char letra_a;
-          char letra_e;
-          String suma_caracter = "";
-                  
-          System.out.println("Ingrese la primera letra: ");
-          letra_a = teclado.next().charAt(0);
-          
-          System.out.println("Ingrese la segunda letra: ");
-          letra_e = teclado.next().charAt(0);
-          
-          suma_caracter += letra_a + letra_e;
-          
-          System.out.println("La suma de caracteres es: " + suma_caracter );
+//          /*
+//          Crear una aplicacion que nos pida dos caracteres
+//          por teclado, y dados esos caracteres sumarlos y mostrarlos
+//          */
+//          
+//          
+//          char letra_a;
+//          char letra_e;
+//          String suma_caracter = " ";
+//                  
+//          System.out.println("Ingrese la primera letra: ");
+//          letra_a = teclado.next().charAt(0);
+//          
+//          System.out.println("Ingrese la segunda letra: ");
+//          letra_e = teclado.next().charAt(0);
+//          
+//         //suma_caracter += letra_a + " " + letra_e;// Muestra las letras
+//         suma_caracter += letra_a + letra_e; 
+//          System.out.println("La suma de caracteres es: " + suma_caracter );
        
           
+//          
+//          
+//
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("     //*      EJERCISIO 12    *//    ");
+//          System.out.println("     /////////////////////////////    ");
+//
+//
+//          /*
+//           Crear una aplicacion que nos pida 2 cadenas(String)
+//           por teclado, y de dicha cadena mostrar su combinacion o 
+//           sumar por pantalla
+//          */
+//          
+//          String cadena_numero1 = "";
+//          String cadena_numero2 = "";
+//          String suma_cadenass = "";
+//          
+//          System.out.println("Por favor ingrese la primera cadena: ");
+//          cadena_numero1 = teclado.next();
+//          
+//          System.out.println("Por favor ingrese la primera cadena: ");
+//          cadena_numero2 = teclado.next();
+//          
+//          
+//         suma_cadenass = cadena_numero1 + " " + cadena_numero2;
+//         
+//         System.out.println("El valor de la cadena es: " + suma_cadenass);
+//         
+//         
           
+
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("     //*      EJERCISIO 13    *//    ");
+//          System.out.println("     /////////////////////////////    ");          
+//          
+//          
+//          /*
+//            Crear una aplicacion que calcule un numero a un exponente X.
+//          */
+//          
+//          
+//          int numero;
+//          int exponente;
+//          
+//          System.out.println("Ingrese el numero: ");
+//          numero = teclado.nextInt();
+//          
+//          
+//          System.out.println("Ingrese el exponente: ");
+//          exponente = teclado.nextInt();
+//          
+//          
+//          
+//          int resultado_exp = (int) Math.pow(numero, exponente);
+//          
+//          System.out.println("El numero " + numero + " Elevado al exponente " 
+//                  + exponente + " es: " +resultado_exp);
+//        
+//          
+//
+//
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("     //*      EJERCISIO 14    *//    ");
+//          System.out.println("     /////////////////////////////    ");           
+//          
+//          /*
+//          Crear una aplicacion que calcule el area de un circulo
+//          
+//          */
+//          
+//          double area_circulo;
+//          double resul_area_circulo;
+//          
+//          System.out.println("Ingrese el area del circulo: ");
+//          area_circulo = teclado.nextDouble();
+//          
+//          resul_area_circulo = Math.PI * (area_circulo * area_circulo);
+//          
+//          System.out.println("El valor del area del circulo es: " + resul_area_circulo);
+//          
+//          
+//          
+//          System.out.println("     /////////////////////////////    ");
+//          System.out.println("     //*      EJERCISIO 15    *//    ");
+//          System.out.println("     /////////////////////////////    "); 
+//          
+//          
+//          /*
+//          Crear una aplicacion que calcule la raiz cuadrada de un numero 
+//          */
+//          
+//          double numero_raiz;
+//          double raiz_cuadrada;
+//          
+//          System.out.println("Ingrese por favor el numero del cual desea saber su raiz cuadrada: ");
+//          numero_raiz = teclado.nextDouble();
+//          
+//          raiz_cuadrada = Math.sqrt(numero_raiz);
+//
+//          
+//          
+//         System.out.println("La raiz cuadrada del numero es: " + raiz_cuadrada);
+//          
+
           
+          System.out.println("     /////////////////////////////    ");
+          System.out.println("     //*      EJERCISIO 16    *//    ");
+          System.out.println("     /////////////////////////////    "); 
+          
+          /*
+          Crear una aplicacion que te pida 3 numeros por teclado 
+          y una ves dados los numeros calcular su promedio y finalmente 
+          muestra su promedio al cubo
+          */
 
 
 
-
-
-        
         
     }
     
